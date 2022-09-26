@@ -1,8 +1,10 @@
 {
     "start": {
+        "description": "Town Square",
         "background": "blue.jpg"
     },
     "next": {
+        "description": "Spooky Cavern",
         "background": "red.jpg"
     }
 }

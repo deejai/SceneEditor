@@ -1,13 +1,17 @@
 * {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Calibri, 'Trebuchet MS', sans-serif;
 }
 
-#game-div {
+#content {
+    margin-right: 15em;
+}
+
+#game_div {
     margin: auto;
     width: fit-content;
 }
 
-#content h1 {
+h1 {
     text-align: center;
     font-size: 3em;
 }
@@ -17,7 +21,64 @@ canvas {
     padding: 5px;
 }
 
-#controls {
+#description {
     width: fit-content;
     margin: auto;
+    font-size: 1.5em;
+}
+
+#editor {
+    background-color: rgba(163, 156, 156, 0.473);
+    display: flex;
+    flex-direction: column;
+    width: 22em;
+    position: absolute;
+    right: 0;
+    top: 5em;
+    height: 45em;
+}
+
+#editor > * {
+
+    flex-grow: 1;
+}
+
+#editor h2 {
+    text-align: center;
+    margin-top: 0.25em;
+    flex-grow: 0;
+}
+
+#controls {
+    padding: 1em;
+    background-color: rgba(128, 128, 128, 0.37);
+    margin: 0 0.5em;
+}
+
+#add_transition {
+    width: 18em;
+    height: 3em;
+    flex-grow: 0;
+    margin: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#collapse_editor {
+    position: absolute;
+    right: 0;
+    margin-top: 1em;
+    margin-right: 1em;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    padding: 0;
+}
+
+.hide {
+    display: none !important;
+}
+
+.collapsed {
+    width: 4em !important;
 }

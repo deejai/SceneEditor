@@ -11,13 +11,20 @@
 <body>
     <div id="content">
         <h1>Scene Editor</h1>
-        <div id="game-div">
+        <div id="game_div">
             <canvas id="game" width="800" height="600"></canvas>
+            <div id="description">
+                <span id="test">U r here</span>
+            </div>
         </div>
+    </div>
+    <div id="editor">
+        <h2>Editor Pane</h2>
+        <button id="collapse_editor" onclick="toggle_editor()">>></button>
         <div id="controls">
-            <button onclick="test_ajax()">Go</button>
-            <span id="test">U r here</span>
+            test
         </div>
+        <button id="add_transition">Add Transition</button>
     </div>
 </body>
 </html>

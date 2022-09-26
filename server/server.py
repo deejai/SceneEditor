@@ -7,6 +7,7 @@ cors = CORS(api, resources={r"*": {"origins": "*"}})
 
 @api.route("/<path>", methods=["GET", "POST"])
 def get_scene(path):
+    print("got")
     if request.method == "GET":
         """Give the scene data to the user"""
         scenes = None
