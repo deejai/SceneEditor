@@ -1,3 +1,4 @@
+from textwrap import indent
 from flask import Flask, json, request
 from flask_cors import CORS
 
@@ -22,6 +23,21 @@ def get_scene(path):
 
     elif request.method == "POST":
         """Modify the scene data"""
+        scene_str = request.data
+        print(scene_str)
+
+        if(scene_str == None):
+            return json.dumps({"error": "400 - Bad request. Missing scene parameter"}), 400
+
+        scenes = None
+        with open("scenes.json", "r+") as f:
+            scenes = json.load(f)
+            scenes[path] = json.loads(scene_str)
+            print(scenes)
+            f.seek(0)
+            json.dump(scenes, f, indent=4)
+            f.truncate()
+
         return json.dumps({"success": "202 - Accepted scene update"}), 202
 
     else:

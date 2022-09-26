@@ -1,17 +1,45 @@
 {
-    "start": {
-        "description": "Town Square",
-        "background": "blue.jpg",
+    "next": {
+        "background": "red.jpg",
+        "description": "Spooky Cavern",
         "transitions": [
-            {"x": 50, "y": 50, "path": "next"}
+            {
+                "path": "start",
+                "x": 150,
+                "y": 250
+            },
+            {
+                "path": "valley",
+                "x": 350,
+                "y": 500
+            }
         ]
     },
-    "next": {
-        "description": "Spooky Cavern",
-        "background": "red.jpg",
+    "start": {
+        "background": "blue.jpg",
+        "description": "Town Squares",
         "transitions": [
-            {"x": 150, "y": 250, "path": "start"},
-            {"x": 350, "y": 500, "path": "start"}
+            {
+                "path": "next",
+                "x": 50,
+                "y": 50
+            }
+        ]
+    },
+    "valley": {
+        "background": "valley.jpg",
+        "description": "Sacred Valley",
+        "transitions": [
+            {
+                "path": "start",
+                "x": 400,
+                "y": 400
+            },
+            {
+                "path": "next",
+                "x": 100,
+                "y": 500
+            }
         ]
     }
 }
