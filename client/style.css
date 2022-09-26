@@ -16,3 +16,8 @@ canvas {
     background-color: black;
     padding: 5px;
 }
+
+#controls {
+    width: fit-content;
+    margin: auto;
+}

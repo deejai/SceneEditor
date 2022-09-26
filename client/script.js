@@ -6,20 +6,6 @@ var ctx = canvas.getContext("2d");
 var lock = false;
 var next = "start";
 
-async function GET(path, data) {
-    let req = new XMLHttpRequest();
-    req.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            let background = new Image();
-            background.src = this.response
-            document.getElementById("test").innerHTML = this.responseText;
-        }
-    };
-    req.open("GET", serverRoot + path, true);
-    req.setRequestHeader('Content-Type', 'application/json');
-    req.send();
-}
-
 function test_ajax() {
     if(lock) {
         return;
