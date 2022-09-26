@@ -1,0 +1,8 @@
+{
+    "start": {
+        "background": "blue.jpg"
+    },
+    "next": {
+        "background": "red.jpg"
+    }
+}
