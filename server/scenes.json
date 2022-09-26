@@ -1,10 +1,17 @@
 {
     "start": {
         "description": "Town Square",
-        "background": "blue.jpg"
+        "background": "blue.jpg",
+        "transitions": [
+            {"x": 50, "y": 50, "path": "next"}
+        ]
     },
     "next": {
         "description": "Spooky Cavern",
-        "background": "red.jpg"
+        "background": "red.jpg",
+        "transitions": [
+            {"x": 150, "y": 250, "path": "start"},
+            {"x": 350, "y": 500, "path": "start"}
+        ]
     }
 }

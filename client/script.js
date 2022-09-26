@@ -1,37 +1,64 @@
 const serverRoot = "http://localhost:5000/";
 
+const r = 25;
+
 var canvas = document.getElementById("game");
 var ctx = canvas.getContext("2d");
 
-var lock = false;
-var next = "start";
+var scene = null;
 
-function test_ajax() {
-    go_to_scene();
+var lock = false;
+
+go_to_scene("start");
+
+function getCursorPosition(canvas, event) {
+    const rect = canvas.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+    for(let transition of scene.transitions) {
+        const dist_from_point = Math.sqrt(Math.pow(transition.x - x, 2) + Math.pow(transition.y - y, 2));
+        if(dist_from_point <= r) {
+            go_to_scene(transition.path);
+            break;
+        }
+        else {
+            console.log(dist_from_point);
+        }
+    }
 }
 
-function go_to_scene() {
+canvas.addEventListener('mousedown', function(e) {
+    getCursorPosition(canvas, e)
+})
+
+function go_to_scene(path) {
     if(lock) {
         return;
     }
 
     lock = true;
-    console.log("A");
-    fetch(serverRoot + next)
+    fetch(serverRoot + path)
         .then(function(response) {
-            console.log("B");
             return response.json();
         })
         .then(function(data) {
-            console.log("C");
+            scene = data;
             let background = new Image();
-            background.src = "images/" + data["background"];
+            background.src = "images/" + scene.background;
             background.onload = function() {
                 ctx.drawImage(background, 0, 0);
-                document.getElementById("controls").getElementsByTagName("span")[0].textContent = data["description"];
+                ctx.globalAlpha = 0.25;
+                ctx.fillStyle = "red";
+                for(let transition of scene.transitions) {
+                    ctx.beginPath();
+                    ctx.arc(transition.x, transition.y, r, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.stroke();
+                }
+                ctx.globalAlpha = 1;
+                document.getElementById("description").textContent = scene.description;
             }
 
-            // next = next == "start" ? "next" : "start";
             lock = false;
         })
 }
