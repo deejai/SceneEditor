@@ -136,6 +136,9 @@ newSceneButton.addEventListener('click', newScene);
 var deleteSceneButton = document.querySelector("#controls .delete");
 deleteSceneButton.addEventListener('click', deleteScene);
 
+var setAsFirstSceneButton = document.querySelector("#controls .setAsFirstScene");
+setAsFirstSceneButton.addEventListener('click', setAsFirstScene);
+
 var saveToServerButton = document.querySelector("#controls .save.server");
 saveToServerButton.addEventListener('click', saveToServer);
 
@@ -228,9 +231,7 @@ async function loadFromServer() {
         const data = await response.json();
         scenes = data;
         selected_transition = null;
-        if(current_scene_key == null) {
-            current_scene_key = Object.keys(scenes)[0];
-        }
+        current_scene_key = Object.keys(scenes)[0];
         refreshView();
     } catch (e) {
         console.error(e);
@@ -291,9 +292,7 @@ function loadFromFile() {
             var content = readerEvent.target.result;
             scenes = JSON.parse(content);
             selected_transition = null;
-            if(current_scene_key == null) {
-                current_scene_key = Object.keys(scenes)[0];
-            }
+            current_scene_key = Object.keys(scenes)[0];
             refreshView();
         }
     }
@@ -372,6 +371,27 @@ function deleteScene() {
     delete scenes[current_scene_key];
     current_scene_key = Object.keys(scenes)[0];
     selected_transition = null;
+    refreshView();
+    
+    lock = false;
+}
+
+function setAsFirstScene() {
+    if(lock) {
+        return;
+    }
+
+    lock = true;
+
+    // set current scene as first key in scenes
+    let new_scenes = {};
+    new_scenes[current_scene_key] = scenes[current_scene_key];
+    for(let key of Object.keys(scenes)) {
+        if(key != current_scene_key) {
+            new_scenes[key] = scenes[key];
+        }
+    }
+    scenes = new_scenes;
     refreshView();
     
     lock = false;

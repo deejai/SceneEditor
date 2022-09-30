@@ -1,4 +1,3 @@
-from textwrap import indent
 from flask import Flask, json, request
 from flask_cors import CORS
 
@@ -19,7 +18,6 @@ def get_scene():
     if request.method == "POST":
         """Update the scenes"""
         scenes_str = request.data.decode("utf-8")
-        print(scenes_str)
 
         if scenes_str == "":
             return json.dumps({"error": "400 - Missing data"}), 400
@@ -33,7 +31,7 @@ def get_scene():
         # TODO: Validate the json after loading it
 
         with open("scenes.json", "w") as f:
-            scenes = json.dump(scenes, f, indent=4)
+            scenes = json.dump(scenes, f, indent=4, sort_keys=False)
 
         return json.dumps({"success": "202 - Scenes updated"}), 201
 

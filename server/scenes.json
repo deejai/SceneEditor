@@ -1,29 +1,4 @@
 {
-    "Brittany's Trees and Garbage": {
-        "background": "abandoned_backyard.png",
-        "transitions": [
-            {
-                "path": "Circle K Gas Station",
-                "x": 148,
-                "y": 193
-            },
-            {
-                "path": "Outside the Alley",
-                "x": 749,
-                "y": 497
-            }
-        ]
-    },
-    "Circle K Gas Station": {
-        "background": "by_the_gas_station.png",
-        "transitions": [
-            {
-                "path": "Brittany's Trees and Garbage",
-                "x": 648,
-                "y": 259
-            }
-        ]
-    },
     "Outside the Alley": {
         "background": "outside_alleyway.png",
         "transitions": [
@@ -33,9 +8,44 @@
                 "y": 442
             },
             {
-                "path": "Brittany's Trees and Garbage",
+                "path": "Abandoned Backyard",
                 "x": 579,
                 "y": 262
+            }
+        ]
+    },
+    "Tha Ba": {
+        "background": "tha_ba.png",
+        "transitions": [
+            {
+                "path": "Outside the Alley",
+                "x": 108,
+                "y": 374.6875
+            },
+            {
+                "path": "test",
+                "x": 631,
+                "y": 570.6875
+            }
+        ]
+    },
+    "Circle K Gas Station": {
+        "background": "by_the_gas_station.png",
+        "transitions": [
+            {
+                "path": "Abandoned Backyard",
+                "x": 648,
+                "y": 259
+            }
+        ]
+    },
+    "test": {
+        "background": "tha_ba.png",
+        "transitions": [
+            {
+                "path": "Abandoned Backyard",
+                "x": 76,
+                "y": 448.6875
             }
         ]
     }
