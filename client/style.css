@@ -1,14 +1,11 @@
-* {
+body {
     font-family: Calibri, 'Trebuchet MS', sans-serif;
 }
 
-#content {
-    margin-right: 15em;
-}
-
-#game_div {
+#viewer {
     margin: auto;
     width: fit-content;
+    position: relative;
 }
 
 h1 {
@@ -19,6 +16,7 @@ h1 {
 canvas {
     background-color: black;
     padding: 5px;
+    user-select: none;
 }
 
 #description {
@@ -27,58 +25,94 @@ canvas {
     font-size: 1.5em;
 }
 
-#editor {
-    background-color: rgba(163, 156, 156, 0.473);
-    display: flex;
-    flex-direction: column;
-    width: 22em;
-    position: absolute;
-    right: 0;
-    top: 5em;
-    height: 45em;
-}
-
-#editor > * {
-
-    flex-grow: 1;
-}
-
-#editor h2 {
-    text-align: center;
-    margin-top: 0.25em;
-    flex-grow: 0;
-}
-
-#controls {
-    padding: 1em;
-    background-color: rgba(128, 128, 128, 0.37);
-    margin: 0 0.5em;
-}
-
-#add_transition {
-    width: 18em;
-    height: 3em;
-    flex-grow: 0;
-    margin: auto;
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-#collapse_editor {
-    position: absolute;
-    right: 0;
-    margin-top: 1em;
-    margin-right: 1em;
-    width: 2em;
-    height: 2em;
-    text-align: center;
-    padding: 0;
-}
-
 .hide {
     display: none !important;
 }
 
-.collapsed {
-    width: 4em !important;
+.popup * {
+}
+
+.popup {
+    user-select: none;
+    position: absolute;
+    top: 25px;
+    left: 75px;
+    overflow: hidden;
+    /* border: 3px solid rgb(0, 0, 0); */
+    /* border-radius: 1em; */
+    color: white;
+    font-weight: bold;
+    padding: 0.25em;
+}
+
+.popup.title {
+    white-space: nowrap;
+    font-size: 1.25em;
+    text-shadow:
+        -1px 1px 0px black,
+        -1px -1px 0px black,
+        1px 1px 0px black,
+        1px -1px 0px black;
+}
+
+.popup.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 10em;
+    margin-top: 2em;
+}
+
+.popup.buttons > * {
+    background-color: rgba(220, 220, 220, 0.8);
+    padding: 0.25em 0.75em;
+}
+
+.popup.buttons > *:hover {
+    background-color: lightgray;
+}
+
+.popup.buttons .move {
+    margin-left: 0.25em;
+    color: rgb(49, 53, 130);
+}
+
+.popup.buttons .dropdown {
+    color: darkgreen;
+}
+
+.popup.buttons .delete {
+    color: darkred;
+}
+
+.popup.list {
+    position: absolute;
+    margin-left: 3.6em;
+    margin-top: 3.6em;
+    /* margin-left: 3.25em; */
+    color: black;
+    font-size: 1.1em;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.popup.list > * {
+    background-color: rgba(123, 122, 122, 0.561);
+}
+
+.popup.list .option {
+    padding: 0.1em 0.5em;
+}
+
+.popup.list .option:hover {
+    background-color: rgb(248, 245, 245);
+}
+
+#description {
+    font-size: 2em;
+    font-weight: bold;
+    padding: 0.25em;
+}
+
+#controls .label {
+
 }

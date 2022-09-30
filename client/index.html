@@ -4,27 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js" defer></script>
+    <script src="https://kit.fontawesome.com/e9ce614ccd.js" crossorigin="anonymous"></script>
+    <script src="js/main.js" defer></script>
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Ratville Scene Editor</title>
 </head>
 <body>
     <div id="content">
         <h1>Scene Editor</h1>
-        <div id="game_div">
-            <canvas id="game" width="800" height="600"></canvas>
-            <div id="description">
-                <span id="test">U r here</span>
+        <div id="viewer">
+            <div class="popup title hide">Path</div>
+            <div class="popup buttons hide">
+                <div class="move"><i class="fas fa-arrows-alt"></i></div>
+                <div class="dropdown"><i class="fas fa-bars"></i></div>
+                <div class="delete"><i class="fas fa-trash"></i></div>
             </div>
+            <div class="popup list hide">
+                <div class="option">Abandoned Backyard</div>
+                <div class="option">Circle K Gas Station</div>
+                <div class="option">Outside the Alley</div>
+            </div>
+            <canvas id="game" width="800" height="600"></canvas>
         </div>
-    </div>
-    <div id="editor">
-        <h2>Editor Pane</h2>
-        <button id="collapse_editor" onclick="toggle_editor()">>></button>
+        <div id="description">
+        </div>
         <div id="controls">
-            test
+            <div class="label">Replace Image</div>
+            <button class="select_bg">Select from server</button>
+            <button class="upload_bg">Upload from local</button>
+            <div class="label">Save/Load Scenes</div>
+            <button class="save">Save</button>
+            <button class="load">Load</button>
         </div>
-        <button id="add_transition">Add Transition</button>
     </div>
 </body>
 </html>

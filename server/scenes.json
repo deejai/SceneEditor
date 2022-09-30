@@ -1,42 +1,39 @@
 {
-    "next": {
-        "background": "red.jpg",
-        "description": "Spooky Cavern",
+    "Abandoned Backyard": {
+        "background": "abandoned_backyard.png",
         "transitions": [
             {
-                "path": "start",
+                "path": "Circle K Gas Station",
                 "x": 150,
                 "y": 250
             },
             {
-                "path": "valley",
+                "path": "Outside the Alley",
                 "x": 350,
                 "y": 500
             }
         ]
     },
-    "start": {
-        "background": "blue.jpg",
-        "description": "Town Squares",
+    "Circle K Gas Station": {
+        "background": "by_the_gas_station.png",
         "transitions": [
             {
-                "path": "next",
+                "path": "Abandoned Backyard",
                 "x": 50,
                 "y": 50
             }
         ]
     },
-    "valley": {
-        "background": "valley.jpg",
-        "description": "Sacred Valley",
+    "Outside the Alley": {
+        "background": "outside_alleyway.png",
         "transitions": [
             {
-                "path": "start",
+                "path": "Circle K Gas Station",
                 "x": 400,
                 "y": 400
             },
             {
-                "path": "next",
+                "path": "Abandoned Backyard",
                 "x": 100,
                 "y": 500
             }
