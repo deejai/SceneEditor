@@ -1,16 +1,16 @@
 {
-    "Abandoned Backyard": {
+    "Brittany's Trees and Garbage": {
         "background": "abandoned_backyard.png",
         "transitions": [
             {
                 "path": "Circle K Gas Station",
-                "x": 150,
-                "y": 250
+                "x": 148,
+                "y": 193
             },
             {
                 "path": "Outside the Alley",
-                "x": 350,
-                "y": 500
+                "x": 749,
+                "y": 497
             }
         ]
     },
@@ -18,9 +18,9 @@
         "background": "by_the_gas_station.png",
         "transitions": [
             {
-                "path": "Abandoned Backyard",
-                "x": 50,
-                "y": 50
+                "path": "Brittany's Trees and Garbage",
+                "x": 648,
+                "y": 259
             }
         ]
     },
@@ -29,13 +29,13 @@
         "transitions": [
             {
                 "path": "Circle K Gas Station",
-                "x": 400,
-                "y": 400
+                "x": 177,
+                "y": 442
             },
             {
-                "path": "Abandoned Backyard",
-                "x": 100,
-                "y": 500
+                "path": "Brittany's Trees and Garbage",
+                "x": 579,
+                "y": 262
             }
         ]
     }

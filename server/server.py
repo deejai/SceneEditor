@@ -31,7 +31,6 @@ def get_scene():
             return json.dumps({"error": "400 - Could not parse json data"}), 400
 
         # TODO: Validate the json after loading it
-        return "", 200
 
         with open("scenes.json", "w") as f:
             scenes = json.dump(scenes, f, indent=4)

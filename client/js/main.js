@@ -8,6 +8,7 @@ var scenes = null;
 var selected_transition = null;
 var current_scene_key = null;
 var lock = false;
+var popupSide = "right";
 var dragTransition = null;
 var dragOffset = {x: 0, y: 0};
 var popupElements = document.querySelectorAll(".popup");
@@ -69,14 +70,45 @@ function drag(e) {
     if(dragTransition) {
         dragTransition.x = clamp(e.clientX - dragOffset.x, 0, 800);
         dragTransition.y = clamp(e.clientY - dragOffset.y, 0, 600);
-        refreshView();
+        refreshView(dragging=true);
     }
 }
 
 document.addEventListener('mousemove', drag);
 
-var moveButton = document.querySelector(".popup.buttons .move");
-moveButton.addEventListener('mousedown', function(e) {
+var description = document.getElementById("description");
+description.addEventListener("click", function() {
+    description.contentEditable = true;
+    description.focus();
+});
+
+description.addEventListener("keydown", function(e) {
+    if(e.key != "Enter") {
+        return;
+    }
+
+    description.contentEditable = false;
+    // replace the keys
+    let new_key = description.textContent;
+    scenes[new_key] = scenes[current_scene_key];
+    delete scenes[current_scene_key];
+
+    // replace path if it matches new_key
+    for(let key of Object.keys(scenes)) {
+        for(let transition of scenes[key].transitions) {
+            if(transition.path == current_scene_key) {
+                transition.path = new_key;
+            }
+        }
+    }
+
+    current_scene_key = new_key;
+
+    refreshView();
+});
+
+var moveTransitionButton = document.querySelector(".popup.buttons .move");
+moveTransitionButton.addEventListener('mousedown', function(e) {
     dragTransition = selected_transition;
     dragOffset.x = e.clientX - selected_transition.x;
     dragOffset.y = e.clientY - selected_transition.y;
@@ -88,8 +120,8 @@ dropdownButton.addEventListener('click', function(e) {
     dropdownList.classList.toggle("hide");
 })
 
-var deleteButton = document.querySelector(".popup.buttons .delete");
-deleteButton.addEventListener('click', function(e) {
+var deleteTransitionButton = document.querySelector(".popup.buttons .delete");
+deleteTransitionButton.addEventListener('click', function(e) {
     if(selected_transition != null) {
         const index = scenes[current_scene_key].transitions.indexOf(selected_transition);
         scenes[current_scene_key].transitions.splice(index, 1);
@@ -98,14 +130,29 @@ deleteButton.addEventListener('click', function(e) {
     }
 })
 
-var saveScenesButton = document.querySelector("#controls .save");
-saveScenesButton.addEventListener('click', saveScenes);
+var newSceneButton = document.querySelector("#controls .new");
+newSceneButton.addEventListener('click', newScene);
 
-var loadScenesButton = document.querySelector("#controls .load");
-loadScenesButton.addEventListener('click', loadScenes);
+var deleteSceneButton = document.querySelector("#controls .delete");
+deleteSceneButton.addEventListener('click', deleteScene);
+
+var saveToServerButton = document.querySelector("#controls .save.server");
+saveToServerButton.addEventListener('click', saveToServer);
+
+var loadFromServerButton = document.querySelector("#controls .load.server");
+loadFromServerButton.addEventListener('click', loadFromServer);
+
+var saveToFileButton = document.querySelector("#controls .save.file");
+saveToFileButton.addEventListener('click', saveToFile);
+
+var loadFromFileButton = document.querySelector("#controls .load.file");
+loadFromFileButton.addEventListener('click', loadFromFile);
 
 document.addEventListener('mouseup', function(e) {
-    dragTransition = null;
+    if(dragTransition) {
+        dragTransition = null;
+        refreshView();
+    }
 })
 
 function drawTransition(transition, alpha=0.25) {
@@ -118,7 +165,11 @@ function drawTransition(transition, alpha=0.25) {
     ctx.globalAlpha = 1;
 }
 
-function refreshView() {
+function refreshView(dragging=false) {
+    if(dragging == false) {
+        popupSide = selected_transition?.x > 500 ? "left" : "right";
+    }
+
     if(selected_transition == null) {
         for(let element of popupElements) {
             element.classList.add("hide");
@@ -132,8 +183,8 @@ function refreshView() {
         for(let transition of scene.transitions) {
             if(transition == selected_transition) {
                 drawTransition(transition, 0.75);
-                let x_offset = transition.x <= 700 ? r + 10 : -r - 180;
-                let y_offset = transition.x <= 550 ? -r - 5 : -r - 5;
+                let x_offset = popupSide == "right" ? r + 10 : -r - 180;
+                let y_offset = -r - 5;
 
                 document.querySelector(".popup.title").textContent = transition.path;
 
@@ -150,10 +201,22 @@ function refreshView() {
             }
         }
         document.getElementById("description").textContent = current_scene_key;
+        document.querySelector(".popup.list").innerHTML = "";
+        for(let key of Object.keys(scenes)) {
+            let option = document.createElement("div");
+            option.classList.add("option");
+            option.onclick = function() {
+                selected_transition.path = key;
+                refreshView();
+            }
+            option.value = key;
+            option.textContent = key;
+            document.querySelector(".popup.list").appendChild(option);
+        }
     }
 }
 
-async function loadScenes() {
+async function loadFromServer() {
     if(lock) {
         return;
     }
@@ -191,7 +254,7 @@ function goToScene(key) {
     lock = false;
 }
 
-async function saveScenes() {
+async function saveToServer() {
     if(lock) {
         return;
     }
@@ -216,4 +279,102 @@ async function saveScenes() {
     }
 }
 
-loadScenes();
+function loadFromFile() {
+    var input = document.createElement('input');
+    input.type = 'file';
+
+    input.onchange = e => { 
+        var file = e.target.files[0]; 
+        var reader = new FileReader();
+        reader.readAsText(file,'UTF-8');
+        reader.onload = readerEvent => {
+            var content = readerEvent.target.result;
+            scenes = JSON.parse(content);
+            selected_transition = null;
+            if(current_scene_key == null) {
+                current_scene_key = Object.keys(scenes)[0];
+            }
+            refreshView();
+        }
+    }
+
+    input.click();
+}
+
+function saveToFile() {
+    if(lock) {
+        return;
+    }
+
+    lock = true;
+
+    // download scenes as json file
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(scenes));
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "scenes.json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+
+    lock = false;
+}
+
+function newScene() {
+    if(lock) {
+        return;
+    }
+
+    lock = true;
+
+    let key = prompt("Enter scene key");
+    if(key == null) {
+        lock = false;
+        return;
+    }
+    if(scenes[key] != null) {
+        alert("Scene with this key already exists");
+        lock = false;
+        return;
+    }
+    scenes[key] = {
+        background: "tha_ba.png",
+        transitions: []
+    };
+    current_scene_key = key;
+    selected_transition = null;
+    refreshView();
+    
+    lock = false;
+}
+
+function deleteScene() {
+    if(lock) {
+        return;
+    }
+
+    lock = true;
+
+    if(current_scene_key == null) {
+        alert("No scene selected");
+        lock = false;
+        return;
+    }
+    if(Object.keys(scenes).length == 1) {
+        alert("Can't delete last scene");
+        lock = false;
+        return;
+    }
+    if(!confirm("Are you sure you want to delete this scene?")) {
+        lock = false;
+        return;
+    }
+    delete scenes[current_scene_key];
+    current_scene_key = Object.keys(scenes)[0];
+    selected_transition = null;
+    refreshView();
+    
+    lock = false;
+}
+
+loadFromServer();
