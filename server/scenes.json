@@ -1,11 +1,36 @@
 {
+    "Abandoned Backyard": {
+        "background": "abandoned_backyard.png",
+        "transitions": [
+            {
+                "path": "Outside the Alley",
+                "x": 69,
+                "y": 386.6875
+            },
+            {
+                "x": 354.5,
+                "y": 248.6875,
+                "path": "Circle K Gas Station"
+            }
+        ]
+    },
+    "Circle K Gas Station": {
+        "background": "by_the_gas_station.png",
+        "transitions": [
+            {
+                "path": "Abandoned Backyard",
+                "x": 625,
+                "y": 285
+            }
+        ]
+    },
     "Outside the Alley": {
         "background": "outside_alleyway.png",
         "transitions": [
             {
                 "path": "Circle K Gas Station",
-                "x": 177,
-                "y": 442
+                "x": 145,
+                "y": 412
             },
             {
                 "path": "Abandoned Backyard",
@@ -26,16 +51,6 @@
                 "path": "test",
                 "x": 631,
                 "y": 570.6875
-            }
-        ]
-    },
-    "Circle K Gas Station": {
-        "background": "by_the_gas_station.png",
-        "transitions": [
-            {
-                "path": "Abandoned Backyard",
-                "x": 648,
-                "y": 259
             }
         ]
     },

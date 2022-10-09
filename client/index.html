@@ -47,11 +47,30 @@
                 <button class="save file">Save to file</button>
                 <button class="load file">Load from file</button>
             </div>
-            <div class="section">
-                <div class="label">Scene Objects</div>
-                <button class="add">Add</button>
-                <button class="remove">Remove</button>
-                <button class="clear">Clear</button>
+        </div>
+        <div class="modal hide" id="background-gui-modal">
+            <div class="modal-content">
+                <span class="close" onclick="this.parentNode.parentNode.classList.add('hide')">&times;</span>
+                <div id="background-gui">
+                    <img src="images/abandoned_backyard.png" onclick="setBackground('abandoned_backyard.png'); closeModals()">
+                    <img src="images/abandoned_factory.png" onclick="setBackground('abandoned_factory.png'); closeModals()">
+                    <img src="images/backyard_corner.png" onclick="setBackground('backyard_corner.png'); closeModals()">
+                    <img src="images/bare_back_porch.png" onclick="setBackground('bare_back_porch.png'); closeModals()">
+                    <img src="images/by_the_gas_station.png" onclick="setBackground('by_the_gas_station.png'); closeModals()">
+                    <img src="images/dude_sitting_by_tree_by_street.png" onclick="setBackground('dude_sitting_by_tree_by_street.png'); closeModals()">
+                    <img src="images/flooded_mcmansion.png" onclick="setBackground('flooded_mcmansion.png'); closeModals()">
+                    <img src="images/jungley_playground.png" onclick="setBackground('jungley_playground.png'); closeModals()">
+                    <img src="images/just_two_dudes.png" onclick="setBackground('just_two_dudes.png'); closeModals()">
+                    <img src="images/outside_alleyway.png" onclick="setBackground('outside_alleyway.png'); closeModals()">
+                    <img src="images/parked_car_by_house.png" onclick="setBackground('parked_car_by_house.png'); closeModals()">
+                    <img src="images/playful_back_porch.png" onclick="setBackground('playful_back_porch.png'); closeModals()">
+                    <img src="images/playful_backyard.png" onclick="setBackground('playful_backyard.png'); closeModals()">
+                    <img src="images/port_factory.png" onclick="setBackground('port_factory.png'); closeModals()">
+                    <img src="images/stoop.png" onclick="setBackground('stoop.png'); closeModals()">
+                    <img src="images/tha_ba.png" onclick="setBackground('tha_ba.png'); closeModals()">
+                    <img src="images/unknown.png" onclick="setBackground('unknown.png'); closeModals()">
+                    <img src="images/wood_two_story.png" onclick="setBackground('wood_two_story.png'); closeModals()">
+                </div>
             </div>
         </div>
     </div>

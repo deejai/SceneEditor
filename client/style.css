@@ -29,8 +29,7 @@ canvas {
     display: none !important;
 }
 
-.popup * {
-}
+.popup * {}
 
 .popup {
     white-space: nowrap;
@@ -65,12 +64,12 @@ canvas {
     margin-top: 2em;
 }
 
-.popup.buttons > * {
+.popup.buttons>* {
     background-color: rgba(220, 220, 220, 0.8);
     padding: 0.25em 0.75em;
 }
 
-.popup.buttons > *:hover {
+.popup.buttons>*:hover {
     background-color: lightgray;
 }
 
@@ -99,7 +98,7 @@ canvas {
     overflow-y: auto;
 }
 
-.popup.list > * {
+.popup.list>* {
     background-color: rgba(123, 122, 122, 0.561);
 }
 
@@ -120,7 +119,7 @@ canvas {
 #controls {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     width: 40em;
     margin: auto;
     margin-top: 1em;
@@ -131,16 +130,85 @@ canvas {
     display: flex;
     flex-direction: column;
     justify-content: top;
-    width: 8em;
+    width: fit-content;
+    margin: 0 1em;
 }
 
 #controls .section button {
     margin: 0.25em;
-    padding: 0.25em;
+    padding: 0.5em;
     border: 1px solid black;
-    background-color: rgba(220, 220, 220, 0.8);
+    background-color: rgba(240, 190, 53, 0.8);
+    border-radius: 15px;
 }
 
 #controls .section button:hover {
-    background-color: lightgray;
+    background-color: rgb(242, 245, 83);
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+#controls .section .label {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.modal {
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: fit-content;
+    max-width: 90%;
+}
+
+#background-gui {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* width: 40em; */
+    margin: auto;
+    margin-top: 1em;
+    text-align: center;
+    flex-wrap: wrap;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+#background-gui img {
+    width: 10em;
+    margin: 0.5em;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }

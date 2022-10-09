@@ -5,8 +5,8 @@ api = Flask(__name__)
 cors = CORS(api, resources={r"*": {"origins": "*"}})
 
 
-@api.route("/", methods=["GET", "POST"])
-def get_scene():
+@api.route("/scenes/", methods=["GET", "POST"])
+def api_scenes():
     if request.method == "GET":
         """Give the scene data to the user"""
         scenes = None
@@ -38,6 +38,13 @@ def get_scene():
     else:
         return json.dumps({"error": "405 - Method not allowed"}), 405
 
+
+# @api.route("/backgrounds/<name>", methods=["GET", "POST"])
+# def api_backgrounds(name):
+#     if request.method == "GET":
+#         if(name is None):
+#             # return all backgrounds
+#             with
 
 if __name__ == "__main__":
     api.run(host="localhost", port=5001, debug=False)

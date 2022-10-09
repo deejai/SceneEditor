@@ -82,20 +82,40 @@ description.addEventListener("click", function() {
     description.focus();
 });
 
+description.addEventListener("blur", function(e) {
+    updateSceneName();
+})
 description.addEventListener("keydown", function(e) {
     if(e.key != "Enter") {
         return;
     }
 
+    updateSceneName();
+});
+
+function updateSceneName() {
     description.contentEditable = false;
-    // replace the keys
+
+    // if name is the same, do nothing
+    if(description.textContent == current_scene_key) {
+        return;
+    }
+
+    // if name is already in use, show error and do nothing
+    if(scenes[description.textContent] != null) {
+        alert("Scene name already in use");
+        return;
+    }
+
+    // update scene name
+    let wasFirstScene = current_scene_key == Object.keys(scenes)[0];
     let new_key = description.textContent;
-    scenes[new_key] = scenes[current_scene_key];
+    scenes[description.textContent] = scenes[current_scene_key];
     delete scenes[current_scene_key];
 
     // replace path if it matches new_key
-    for(let key of Object.keys(scenes)) {
-        for(let transition of scenes[key].transitions) {
+    for(let scene of Object.values(scenes)) {
+        for(let transition of scene.transitions) {
             if(transition.path == current_scene_key) {
                 transition.path = new_key;
             }
@@ -104,8 +124,12 @@ description.addEventListener("keydown", function(e) {
 
     current_scene_key = new_key;
 
+    if(wasFirstScene) {
+        setAsFirstScene();
+    }
+
     refreshView();
-});
+}
 
 var moveTransitionButton = document.querySelector(".popup.buttons .move");
 moveTransitionButton.addEventListener('mousedown', function(e) {
@@ -150,6 +174,9 @@ saveToFileButton.addEventListener('click', saveToFile);
 
 var loadFromFileButton = document.querySelector("#controls .load.file");
 loadFromFileButton.addEventListener('click', loadFromFile);
+
+var selectBackgroundButton = document.querySelector("#controls .select_bg");
+selectBackgroundButton.addEventListener('click', ()=>{document.querySelector("#background-gui-modal").classList.remove("hide")});
 
 document.addEventListener('mouseup', function(e) {
     if(dragTransition) {
@@ -227,7 +254,7 @@ async function loadFromServer() {
     lock = true;
 
     try {
-        const response = await fetch(serverRoot);
+        const response = await fetch(`${serverRoot}/scenes/`);
         const data = await response.json();
         scenes = data;
         selected_transition = null;
@@ -263,7 +290,7 @@ async function saveToServer() {
     lock = true;
 
     try {
-        const response = await fetch(serverRoot, {
+        const response = await fetch(`${serverRoot}/scenes/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -395,6 +422,17 @@ function setAsFirstScene() {
     refreshView();
     
     lock = false;
+}
+
+function setBackground(src) {
+    scenes[current_scene_key].background = src;
+    refreshView();
+}
+
+function closeModals() {
+    for(let element of document.querySelectorAll(".modal")) {
+        element.classList.add("hide");
+    }
 }
 
 loadFromServer();
